@@ -1,0 +1,32 @@
+version: "3"
+
+networks:
+    default:
+
+services:
+    api:
+        container_name: cuyhub-api_dev
+        build:
+            context: .
+            dockerfile: dev.Dockerfile
+        ports:
+            - 3000:3000
+        depends_on:
+            - db
+        restart: unless-stopped
+        networks:
+            - default
+        env_file:
+            - .env
+        volumes:
+            - .:/app
+    db:
+        container_name: db_postgres
+        image: postgres:13-alpine
+        restart: unless-stopped
+        ports:
+            - 5432:5432
+        networks:
+            - default
+        env_file:
+            - .env
