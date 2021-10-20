@@ -1,0 +1,10 @@
+[
+    {
+        "code": "0001",
+        "message": "unauthorized permission denied"
+    },
+    {
+        "code": "0002",
+        "message": "get data failed"
+    }
+]
