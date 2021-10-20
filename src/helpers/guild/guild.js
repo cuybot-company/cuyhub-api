@@ -1,18 +1,12 @@
 'use strict'
 
-const axios = require('axios')
-
-const { TOKEN_BOT } = process.env
-const endpoint = require('../endpoint/endpoint')
+const axios = require('../axios/axios')
+const {GUILDS} = require('../endpoint/endpoint')
 
 exports.GetGuild = async (id) => {
   try {
-    const endPoint = endpoint.GUILDS + id + '/preview'
-    const result = await axios.get(endPoint, {
-      headers: {
-        'Authorization': 'Bot ' + TOKEN_BOT
-      }
-    })
+    const endPoint = GUILDS + id + '/preview'
+    const result = await axios.get(endPoint)
     return {
       data: result.data
     }
@@ -23,12 +17,8 @@ exports.GetGuild = async (id) => {
 
 exports.GetGuildRoles = async (id) => {
   try {
-    const endPoint = endpoint.GUILDS + id + '/roles'
-    const result = await axios.get(endPoint, {
-      headers: {
-        'Authorization': 'Bot ' + TOKEN_BOT
-      }
-    })
+    const endPoint = GUILDS + id + '/roles'
+    const result = await axios.get(endPoint)
     
     return { data: result.data.filter(data => {
       return data.name !== "@everyone" && data.tags === undefined
