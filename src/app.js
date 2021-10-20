@@ -6,8 +6,7 @@ const compression = require('compression')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 const response = require('../config/payload_config')
-const token = process.env.BEARER
-const PORT = process.env.PORT
+const { BEARER, PORT } = process.env
 
 const app = express()
 
@@ -24,9 +23,10 @@ const main_routes = require('./routes/index')
 const guild = require('./routes/guild/guildRoutes')
 
 main_routes(app)
+guild(app)
 
 app.use((req, res, next) => {
-    const bearerToken = token
+    const bearerToken = BEARER
     if (
       req.headers.authorization &&
       req.headers.authorization.split(' ')[0] == 'Bearer'
@@ -41,8 +41,6 @@ app.use((req, res, next) => {
       return response.errAuthorize('UnAuthorized Permission Denied', res.status(500))
     }
 })
-
-guild(app)
 
 app.listen(PORT, () => {
     console.log(`Listening on Port: ${PORT}`)
