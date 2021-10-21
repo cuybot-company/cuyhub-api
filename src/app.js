@@ -5,9 +5,14 @@ const cors = require('cors')
 const compression = require('compression')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
+const rateLimit = require("express-rate-limit")
+
 const response = require('../config/payload_config')
 const { BEARER, PORT } = process.env
-
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
 const app = express()
 
 app.use(cors())
@@ -18,6 +23,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/'))
 app.use(express.static(__dirname + 'public'))
+app.use(limiter)
 
 const main_routes = require('./routes/index')
 const guild = require('./routes/guild/guildRoutes')
