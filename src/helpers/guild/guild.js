@@ -24,6 +24,6 @@ exports.GetGuildRoles = async (id) => {
       return data.name !== "@everyone" && data.tags === undefined
     }) }
   } catch (err) {
-    return ''
+    return '0002'
   }
 }
