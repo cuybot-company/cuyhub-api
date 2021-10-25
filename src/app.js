@@ -28,9 +28,8 @@ app.use(limiter)
 const main_routes = require('./routes/index')
 const guild = require('./routes/guild/guildRoutes')
 
-
+//Without Bearer
 main_routes(app)
-guild(app)
 
 app.get('/', function (req, res) {
   res.send('Cuyhub API V1 is ready to use!')
@@ -52,6 +51,9 @@ app.use((req, res, next) => {
       return response.errAuthorize('UnAuthorized Permission Denied', res.status(500))
     }
 })
+
+//With Bearer
+guild(app)
 
 app.listen(PORT, () => {
     console.log(`Listening on Port: ${PORT}`)

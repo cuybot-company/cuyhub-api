@@ -7,6 +7,7 @@ exports.GetGuild = async (id) => {
   try {
     const endPoint = GUILDS + id + '/preview'
     const result = await axios.get(endPoint)
+
     return {
       data: result.data
     }
@@ -23,6 +24,19 @@ exports.GetGuildRoles = async (id) => {
     return { data: result.data.filter(data => {
       return data.name !== "@everyone" && data.tags === undefined
     }) }
+  } catch (err) {
+    return '0002'
+  }
+}
+
+exports.GetGuildMember = async (id, limit, after) => {
+  try {
+    const endPoint = GUILDS + id + `/members?limit=${limit}&after=${after}`
+    const result = await axios.get(endPoint)
+    
+    return {
+      data: result.data
+    }
   } catch (err) {
     return '0002'
   }
