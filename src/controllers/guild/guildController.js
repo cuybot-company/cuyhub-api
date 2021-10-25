@@ -31,6 +31,5 @@ exports.getGuildMember = async (req, res) => {
   const limit = req.query.limit || 10
   const after = req.query.after || 0
   const result = await GetGuildMember(id,limit,after)
-  console.log(result)
   result ? response.ok(result, GET_MEMBERS, res) : response.err(result, req.originalUrl, 400, res)
 }

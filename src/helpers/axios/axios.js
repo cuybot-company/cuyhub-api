@@ -8,7 +8,7 @@ const defaultOptions = {
     baseURL: DISCORD_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bot ' + TOKEN_BOT
+        'Authorization': 'Bot ' + Buffer.from(TOKEN_BOT, 'base64').toString()
     },
 }
 
